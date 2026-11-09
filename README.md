@@ -115,3 +115,51 @@ https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page
 - [ ] Pipeline automation
 - [ ] Analytics dashboard
 - [ ] Docker, testing and final documentation
+
+
+
+## Data Warehouse & Dimensional Modeling
+
+TaxiFlow implements a star schema using DuckDB and dbt.
+
+### Fact Table
+
+- analytics.fct_viajes
+
+### Dimension Tables
+
+- analytics.dim_fecha
+- analytics.dim_zona
+- analytics.dim_pago
+
+### Data Warehouse Results
+
+- Source records: 7,052,769
+- Clean trips: 6,927,342
+- Fact table records: 6,927,342
+- dbt models: 4
+- dbt tests passed: 11
+
+### Execute the Warehouse
+
+Configure TAXIFLOW_DB_PATH with the absolute
+path to the local DuckDB database.
+
+Run transformations and tests:
+
+    dbt build --profiles-dir .
+
+Generate documentation:
+
+    dbt docs generate --profiles-dir .
+
+Serve documentation:
+
+    dbt docs serve --profiles-dir .
+
+### Data Quality
+
+- Dimension keys validated for uniqueness
+- Mandatory keys validated for nulls
+- Fact-to-dimension relationships validated
+- CLEAN and FACT record counts reconciled

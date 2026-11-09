@@ -1,0 +1,10 @@
+
+version: 2
+
+sources:
+  - name: clean
+    description: Datos preparados por el pipeline ELT.
+    schema: clean
+    tables:
+      - name: viajes
+        description: Viajes válidos para análisis ordinario.

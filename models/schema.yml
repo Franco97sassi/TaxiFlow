@@ -1,0 +1,59 @@
+
+version: 2
+
+models:
+  - name: dim_fecha
+    description: Dimensión temporal de los viajes.
+    columns:
+      - name: fecha_key
+        data_tests:
+          - not_null
+          - unique
+
+  - name: dim_zona
+    description: Dimensión de identificadores de zona TLC.
+    columns:
+      - name: zona_id
+        data_tests:
+          - not_null
+          - unique
+
+  - name: dim_pago
+    description: Dimensión de formas de pago.
+    columns:
+      - name: pago_id
+        data_tests:
+          - not_null
+          - unique
+
+  - name: fct_viajes
+    description: Tabla de hechos de viajes ordinarios.
+    columns:
+      - name: fecha_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_fecha')
+                field: fecha_key
+
+      - name: zona_origen_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_zona')
+                field: zona_id
+
+      - name: zona_destino_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_zona')
+                field: zona_id
+
+      - name: pago_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_pago')
+                field: pago_id
