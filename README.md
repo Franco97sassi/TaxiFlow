@@ -163,3 +163,68 @@ Serve documentation:
 - Mandatory keys validated for nulls
 - Fact-to-dimension relationships validated
 - CLEAN and FACT record counts reconciled
+
+
+## Pipeline Orchestration & CI/CD
+
+TaxiFlow implements automated batch processing
+using Python and GitHub Actions.
+
+### Orchestration
+
+The pipeline executes:
+
+1. NYC Taxi data ingestion
+2. STAGING transformations
+3. CLEAN data processing
+4. Data Warehouse build with dbt
+5. Data reconciliation
+6. Automated Python tests
+
+### CI/CD
+
+Two GitHub Actions workflows:
+
+- TaxiFlow CI: validates dependencies, Python
+  syntax and dbt configuration.
+- TaxiFlow Batch Pipeline: executes the
+  complete pipeline.
+
+### Scheduling
+
+The batch pipeline is scheduled for the first
+day of each month at 09:17 UTC.
+
+The current version processes January and
+February 2025 as demonstration datasets.
+
+### Validation Results
+
+- Source records: 7,052,769
+- Clean records: 6,927,342
+- dbt models: 4
+- dbt data tests: 11
+- Python unit tests: 6
+- Warehouse reconciliation: OK
+
+### Execution
+
+Local:
+
+    python src/pipeline.py
+
+Validation only:
+
+    python src/pipeline.py --solo-validar
+
+GitHub Actions:
+
+    Actions > TaxiFlow Batch Pipeline > Run workflow
+
+### Limitations
+
+The pipeline currently performs full batch
+rebuilds instead of incremental loads.
+
+GitHub-hosted runner data is temporary.
+Persistent cloud storage is not configured.
