@@ -1,0 +1,16 @@
+
+.git
+.github
+.venv
+__pycache__
+*.pyc
+.env
+.env.*
+data/
+logs/
+target/
+dbt_packages/
+profiles.yml
+*.duckdb
+*.parquet
+.streamlit/secrets.toml

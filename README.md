@@ -231,3 +231,33 @@ Persistent cloud storage is not configured.
 
 python -m compileall -q src
 python -m pip check
+
+
+## Docker
+
+Build and start the analytics dashboard:
+
+    docker compose up --build -d
+
+Check container status:
+
+    docker compose ps
+
+View logs:
+
+    docker compose logs --tail=30 dashboard
+
+Open the application:
+
+    http://localhost:8501
+
+Stop the application:
+
+    docker compose down
+
+The container mounts the local DuckDB warehouse
+as a read-only volume.
+
+Before starting Docker, generate the warehouse:
+
+    python src/pipeline.py

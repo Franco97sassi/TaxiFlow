@@ -1,0 +1,12 @@
+
+services:
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: taxiflow-dashboard
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data/warehouse:/app/data/warehouse:ro
+    restart: unless-stopped
