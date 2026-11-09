@@ -1,27 +1,22 @@
-# Entorno virtual
+# Python
 .venv/
-
-# Archivos temporales de Python
 __pycache__/
 *.pyc
 
-# Datos del pipeline
+# Datos
 data/raw/
 data/warehouse/
-
-# Bases de datos locales
 *.duckdb
 *.duckdb.wal
 
-# Variables de entorno y secretos
+# dbt
+profiles.yml
+.user.yml
+target/
+dbt_packages/
+logs/
+
+# Variables sensibles
 .env
 .env.*
 !.env.example
-
-# Configuración local
-.vscode/
-.streamlit/secrets.toml
-
-# Archivos de sistema
-.DS_Store
-Thumbs.db
