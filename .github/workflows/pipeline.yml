@@ -1,0 +1,46 @@
+
+name: TaxiFlow Batch Pipeline
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 9 1 * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: taxiflow-batch
+  cancel-in-progress: false
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          python -m pip check
+
+      - name: Execute TaxiFlow pipeline
+        run: |
+          python src/pipeline.py
+
+      - name: Execution summary
+        if: always()
+        run: |
+          echo "## TaxiFlow Batch Pipeline" >> "$GITHUB_STEP_SUMMARY"
+          echo "Status: ${{ job.status }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "Datasets: January and February 2025" >> "$GITHUB_STEP_SUMMARY"
