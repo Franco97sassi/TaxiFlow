@@ -228,3 +228,6 @@ rebuilds instead of incremental loads.
 
 GitHub-hosted runner data is temporary.
 Persistent cloud storage is not configured.
+
+python -m compileall -q src
+python -m pip check
